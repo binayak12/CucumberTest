@@ -1,6 +1,8 @@
 package stepDefinations;
 
 import org.junit.Assert;
+
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -18,10 +20,11 @@ public class LoginFeature {
 	
 	static WebDriver driver;
 	static LoginPage loginPg;
-	
+	static Logger log;
 	
 	@Given("we are in login page")
 	public static void we_are_in_login_page() {
+		log = Logger.getLogger(LoginFeature.class.getName());
 		driver = BrowserFactory.getDriver();
 		driver.manage().window().maximize();
 		loginPg = PageFactory.initElements(driver, LoginPage.class);
@@ -30,6 +33,9 @@ public class LoginFeature {
 
 	@When("we enter usermane {} and password {}")
 	public static void we_enter_usermane_and_password(String username, String password) {
+		
+		log.info("Trying username \"" + username + "\" and password \"" + password + "\"");
+		
 		loginPg.enterUsername(username);
 		loginPg.enterPassword(password);
 	}
